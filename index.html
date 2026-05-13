@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Kamu ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* --- Halaman Pertama --- */
+        .container {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            position: relative;
+            width: 92%;
+            max-width: 380px;
+            margin: 20px auto;
+        }
+
+        h1 { 
+            color: #d63384; 
+            margin-bottom: 12px;
+            font-size: 1.8rem;
+        }
+        
+        p { 
+            color: #555; 
+            font-size: 1.15rem; 
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 16px 28px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            min-width: 140px; /* biar tombol lebih besar di HP */
+        }
+
+        #btnMau {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+        }
+
+        #btnGak { 
+            background-color: #ddd; 
+            color: #777; 
+        }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 238, 242, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(214, 51, 132, 0.2);
+            width: 100%;
+            max-width: 340px;
+        }
+
+        #btnLove {
+            background-color: #ff4d6d;
+            color: white;
+            font-size: 1.8rem;
+            padding: 16px 40px;
+            margin-top: 25px;
+            min-width: 180px;
+        }
+
+        /* --- Halaman akhir jembut --- */
+        #halamanAkhir {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #ffeef2;
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* Animasi hati kontol*/
+        .heart {
+            position: fixed;
+            top: -10%;
+            color: #ff4d6d;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { 
+                transform: translateY(110vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .show { display: flex !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Halaman Awal -->
+    <div class="container" id="cardAwal">
+        <h1>Hai Nisa, ❤️</h1>
+        <p>Aku udah lama mau bilang ini...<br>Kamu mau gak jadi pacarku?</p>
+        <div class="btn-group">
+            <button id="btnMau" onclick="munculModal()">Mau!</button>
+            <button id="btnGak" onmouseover="pindah(this)" onclick="pindah(this)">Enggak</button>
+        </div>
+    </div>
+
+    <!--  Modal  -->
+    <div class="modal-overlay" id="modalTahap2">
+        <div class="modal-content">
+            <h2>Yay! I Love You Too! ❤️</h2>
+            <p>Hari ini jadi hari paling bahagia buat aku.<br>Makasih ya udah nerima aku!</p>
+            <button id="btnLove" onclick="keHalamanAkhir()">❤️</button>
+        </div>
+    </div>
+
+    <!-- Halaman Akhir -->
+    <div id="halamanAkhir">
+        <h1 style="font-size: 2.8rem; margin-bottom: 10px;">Forever & Always ❤️</h1>
+        <p style="font-size: 1.4rem;">Gak ada lagi siapa pun, cuma ada kita.</p>
+    </div>
+
+    <script>
+         // Hujan Hati tempik
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 2.5 + 3;
+            heart.style.animationDuration = duration + 's';
+            heart.style.fontSize = Math.random() * 22 + 18 + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        setInterval(createHeart, 280);
+
+        function munculModal() {
+            document.getElementById('modalTahap2').classList.add('show');
+            for(let i = 0; i < 25; i++) {
+                setTimeout(createHeart, i * 80);
+            }
+        }
+
+        function keHalamanAkhir() {
+            document.getElementById('modalTahap2').classList.remove('show');
+            document.getElementById('cardAwal').style.display = 'none';
+            document.getElementById('halamanAkhir').classList.add('show');
+            
+            // Hujan hati lebih deras
+            setInterval(createHeart, 120);
+        }
+
+         // Tombol "Enggak" kabur ben gk ketangkep :D
+        function pindah(btn) {
+            const maxX = window.innerWidth - btn.offsetWidth - 30;
+            const maxY = window.innerHeight - btn.offsetHeight - 80;
+            
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            btn.style.position = "fixed";
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
+        }
+        <!-- Tunjukno  pesonamu sebagai anak RPL yang jago ngoding, biar dia makin yakin pas nerimo koen :D    -->
+    </script>
+</body>
+</html>
